@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public bool canHaveShield = false;
     public bool canTripleShoot = false;
     public bool canSpeedUp = false;
     [SerializeField]
     private GameObject _laserPrefab;
+    [SerializeField]
+    public GameObject shieldGameObject;
     [SerializeField]
     private GameObject _trippleLaserPrefab;
     [SerializeField]
@@ -17,12 +20,13 @@ public class Player : MonoBehaviour
     private float _nextFireTime = 0.0f;
     private int _health = 3;
     [SerializeField]
-    private GameObject playerExpPrefab;
+    private GameObject _playerExpPrefab;
     private void Update() {
         Movement();
         if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)){
             Shoot();
         }
+        Debug.Log(_health);
     }
 
     private void Shoot(){
@@ -68,12 +72,21 @@ public class Player : MonoBehaviour
         StartCoroutine(TripleShotPowerDownRoutine());
     }
 
-    public void StartSpeedShotPowerDown(){
+    public void StartSpeedPowerDown(){
         canSpeedUp = true;
         StartCoroutine(SpeedPowerDownRoutine());
     }
-    
 
+    public void StartShieldPowerDown(){
+        canHaveShield = true;
+        shieldGameObject.SetActive(true);
+        StartCoroutine(ShieldPowerDownRoutine());
+    }
+    private IEnumerator ShieldPowerDownRoutine(){
+        yield return new WaitForSeconds(10.0f);
+        canHaveShield = false;
+        shieldGameObject.SetActive(false);
+    }
     private IEnumerator TripleShotPowerDownRoutine(){
         yield return new WaitForSeconds(5.0f);
         canTripleShoot = false;
@@ -84,10 +97,12 @@ public class Player : MonoBehaviour
     }
 
     public void Die(){
-        _health--;
-        if(_health == 0){
-            Instantiate(playerExpPrefab,this.transform.position,Quaternion.identity);
-            Destroy(this.transform.gameObject);
+        if(canHaveShield == false){
+            _health--;
+            if(_health == 0){
+                Instantiate(_playerExpPrefab,this.transform.position,Quaternion.identity);
+                Destroy(this.transform.gameObject);
+            }
         }
     }
 }

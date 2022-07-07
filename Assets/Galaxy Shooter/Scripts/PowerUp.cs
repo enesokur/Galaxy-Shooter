@@ -20,10 +20,15 @@ public class PowerUp : MonoBehaviour
                     player.StartTripleShotPowerDown();
                 }
                 else if(powerUpId == 1){
-                    player.StartSpeedShotPowerDown();
+                    player.StartSpeedPowerDown();
+                }
+                else if(powerUpId == 2){
+                    player.StartShieldPowerDown();
                 }
             }
             Destroy(this.gameObject);
        }
    }
 }
+// Shild power up ın setupını kur. Toplanabilir yap. Shild yeteneğini aktif et. Shield açık olduğunda 1 hasarı absorbe edebiliyoruz ve sonra shield
+// kapanıyor. Shieldı belli bir saniye açık tut.

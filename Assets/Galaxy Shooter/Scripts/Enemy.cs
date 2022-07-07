@@ -33,6 +33,8 @@ public class Enemy : MonoBehaviour{
             Player player = other.gameObject.GetComponent<Player>();
             if(player != null){
                 player.Die();
+                player.canHaveShield = false;
+                player.shieldGameObject.SetActive(false);
             }
             _randomArrayIndex = Random.Range(0,_randomEnemyPositions.Length);
             Instantiate(enemyPrefab,_randomEnemyPositions[_randomArrayIndex],Quaternion.identity);
