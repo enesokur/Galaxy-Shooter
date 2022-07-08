@@ -124,15 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a72a44ced68e244da332a494547c39f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: -2
-  _randomEnemyPositions:
-  - {x: -6.5, y: 9.5, z: 0}
-  - {x: -4.5, y: 9.5, z: 0}
-  - {x: -2.5, y: 9.5, z: 0}
-  - {x: -0.5, y: 9.5, z: 0}
-  - {x: 1.5, y: 9.5, z: 0}
-  - {x: 3.5, y: 9.5, z: 0}
-  - {x: 5.5, y: 9.5, z: 0}
-  - {x: 7.5, y: 9.5, z: 0}
+  _speed: -4
   enemyPrefab: {fileID: 2133563455970117940}
   enemyExplosionPrefab: {fileID: 921944836934779077, guid: 77d908dad6a46d640aa78598127a8794, type: 3}

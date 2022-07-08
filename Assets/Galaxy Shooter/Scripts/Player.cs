@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _fireRate = 0.4f;
     private float _nextFireTime = 0.0f;
-    private int _health = 3;
+    public int health = 3;
     [SerializeField]
     private GameObject _playerExpPrefab;
     private void Update() {
@@ -26,7 +26,6 @@ public class Player : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)){
             Shoot();
         }
-        Debug.Log(_health);
     }
 
     private void Shoot(){
@@ -98,8 +97,8 @@ public class Player : MonoBehaviour
 
     public void Die(){
         if(canHaveShield == false){
-            _health--;
-            if(_health == 0){
+            health--;
+            if(health == 0){
                 Instantiate(_playerExpPrefab,this.transform.position,Quaternion.identity);
                 Destroy(this.transform.gameObject);
             }
