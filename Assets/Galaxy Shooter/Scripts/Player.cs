@@ -21,6 +21,22 @@ public class Player : MonoBehaviour
     public int health = 3;
     [SerializeField]
     private GameObject _playerExpPrefab;
+    [SerializeField]
+    private UIManager _uIManagerScript;
+    private GameManager _gameManagerScript;
+    private SpawnManager _spawnManagerScript;
+    private void Start() {
+        _uIManagerScript = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _spawnManagerScript = GameObject.Find("SpawnManagerObject").GetComponent<SpawnManager>();
+        if(_uIManagerScript != null){
+            _uIManagerScript.UpdateLives(health);
+        }
+        if(_spawnManagerScript != null){
+            _spawnManagerScript.StartRoutines();
+        }
+    }
+
     private void Update() {
         Movement();
         if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)){
@@ -98,8 +114,11 @@ public class Player : MonoBehaviour
     public void Die(){
         if(canHaveShield == false){
             health--;
+            _uIManagerScript.UpdateLives(health);
             if(health == 0){
                 Instantiate(_playerExpPrefab,this.transform.position,Quaternion.identity);
+                _gameManagerScript._hasGameStarted = false;
+                _uIManagerScript.ShowMenu();
                 Destroy(this.transform.gameObject);
             }
         }

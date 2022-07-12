@@ -10,7 +10,7 @@ public class Laser : MonoBehaviour
     [SerializeField]
     private int laserType;
     private void Start() {
-        playerScript = GameObject.Find("Player").GetComponent<Player>();
+        playerScript = GameObject.FindWithTag("Player").GetComponent<Player>();
     }
     private void Update() {
         this.transform.Translate(new Vector3(0f,_speed,0f)*Time.deltaTime);

@@ -9,8 +9,9 @@ public class Enemy : MonoBehaviour{
     private GameObject enemyPrefab;
     [SerializeField]
     private GameObject enemyExplosionPrefab;
+    private UIManager _uIManagerScript;
     private void Start() {
-        
+        _uIManagerScript = GameObject.Find("Canvas").GetComponent<UIManager>();
     }
     private void Update() {
         EnemyAI();
@@ -18,6 +19,9 @@ public class Enemy : MonoBehaviour{
 
     private void EnemyAI(){
         this.transform.Translate(new Vector3(0f,_speed,0f)*Time.deltaTime);
+        if(this.transform.position.y < -7){
+            Destroy(this.gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -34,6 +38,7 @@ public class Enemy : MonoBehaviour{
         if(other.gameObject.tag == "laser"){
             Destroy(other.gameObject);
             Instantiate(enemyExplosionPrefab,this.transform.position,Quaternion.identity);
+            _uIManagerScript.UpdateScore();
             Destroy(this.gameObject);
         }
     }

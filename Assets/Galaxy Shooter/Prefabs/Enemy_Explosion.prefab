@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 921944836934779072}
   - component: {fileID: 921944836934779079}
   - component: {fileID: 921944836934779078}
+  - component: {fileID: 607308113577932721}
   m_Layer: 0
   m_Name: Enemy_Explosion
   m_TagString: Untagged
@@ -105,3 +106,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &607308113577932721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 921944836934779077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 858b127c795a36047bd0b3218a3fa4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
