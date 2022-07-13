@@ -8,6 +8,8 @@ public class PowerUp : MonoBehaviour
    private float _speed = 2f;
    [SerializeField]
    private int powerUpId;
+   [SerializeField]
+   private AudioClip _clip;
 
    private void Update() {
        this.transform.Translate(Vector3.down*_speed*Time.deltaTime);
@@ -17,6 +19,7 @@ public class PowerUp : MonoBehaviour
    }
    private void OnTriggerEnter2D(Collider2D other) {
        if(other.tag == "Player"){
+            AudioSource.PlayClipAtPoint(_clip,Camera.main.transform.position,0.4f);
             Player player = other.gameObject.GetComponent<Player>();
             if(player != null){
                 if(powerUpId == 0){
@@ -33,5 +36,3 @@ public class PowerUp : MonoBehaviour
        }
    }
 }
-// Shild power up ın setupını kur. Toplanabilir yap. Shild yeteneğini aktif et. Shield açık olduğunda 1 hasarı absorbe edebiliyoruz ve sonra shield
-// kapanıyor. Shieldı belli bir saniye açık tut.

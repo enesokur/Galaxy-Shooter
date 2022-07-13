@@ -25,16 +25,22 @@ public class Player : MonoBehaviour
     private UIManager _uIManagerScript;
     private GameManager _gameManagerScript;
     private SpawnManager _spawnManagerScript;
+    private AudioSource _audioSource;
+    [SerializeField]
+    private GameObject[] _engines;
+    private int hitCount = 0;
     private void Start() {
         _uIManagerScript = GameObject.Find("Canvas").GetComponent<UIManager>();
         _gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManager>();
         _spawnManagerScript = GameObject.Find("SpawnManagerObject").GetComponent<SpawnManager>();
+        _audioSource = this.GetComponent<AudioSource>();
         if(_uIManagerScript != null){
             _uIManagerScript.UpdateLives(health);
         }
         if(_spawnManagerScript != null){
             _spawnManagerScript.StartRoutines();
         }
+        hitCount = 0;
     }
 
     private void Update() {
@@ -46,6 +52,7 @@ public class Player : MonoBehaviour
 
     private void Shoot(){
         if(Time.time > _nextFireTime){
+            _audioSource.Play();
             if(canTripleShoot){
                 Instantiate(_trippleLaserPrefab,transform.position,Quaternion.identity);
             }
@@ -114,6 +121,14 @@ public class Player : MonoBehaviour
     public void Die(){
         if(canHaveShield == false){
             health--;
+            if(hitCount == 0){
+                _engines[0].SetActive(true);
+                hitCount++;
+            }
+            else if(hitCount == 1){
+                _engines[1].SetActive(true);
+                hitCount++;
+            }
             _uIManagerScript.UpdateLives(health);
             if(health == 0){
                 Instantiate(_playerExpPrefab,this.transform.position,Quaternion.identity);

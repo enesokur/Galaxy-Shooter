@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour{
     [SerializeField]
     private GameObject enemyExplosionPrefab;
     private UIManager _uIManagerScript;
+    [SerializeField]
+    private AudioClip _clip;
     private void Start() {
         _uIManagerScript = GameObject.Find("Canvas").GetComponent<UIManager>();
     }
@@ -33,12 +35,14 @@ public class Enemy : MonoBehaviour{
                 player.shieldGameObject.SetActive(false);
             }
             Instantiate(enemyExplosionPrefab,this.transform.position,Quaternion.identity);
+            AudioSource.PlayClipAtPoint(_clip,Camera.main.transform.position,0.4f);
             Destroy(this.transform.gameObject);
         }
         if(other.gameObject.tag == "laser"){
             Destroy(other.gameObject);
             Instantiate(enemyExplosionPrefab,this.transform.position,Quaternion.identity);
             _uIManagerScript.UpdateScore();
+            AudioSource.PlayClipAtPoint(_clip,Camera.main.transform.position,0.4f);
             Destroy(this.gameObject);
         }
     }
